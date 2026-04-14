@@ -1,0 +1,43 @@
+version: 2
+
+sources:
+  - name: baseball_public
+    database: bigquery-public-data
+    schema: baseball
+    description: "Public BigQuery baseball dataset — source of truth"
+
+    tables:
+      - name: games_wide
+        description: "All regular season games with full statistics per game"
+        columns:
+          - name: gameId
+            description: "Unique game identifier"
+            tests:
+              - unique
+              - not_null
+          - name: startTime
+            description: "Game start timestamp"
+            tests:
+              - not_null
+          - name: homeTeamName
+            description: "Name of the home team"
+          - name: awayTeamName
+            description: "Name of the away team"
+          - name: homeTeamRuns
+            description: "Runs scored by home team"
+          - name: awayTeamRuns
+            description: "Runs scored by away team"
+
+      - name: schedules
+        description: "Game schedule information including status"
+        columns:
+          - name: gameId
+            tests:
+              - not_null
+
+      - name: games_post_wide
+        description: "Postseason (playoff) games with full statistics"
+        columns:
+          - name: gameId
+            tests:
+              - not_null

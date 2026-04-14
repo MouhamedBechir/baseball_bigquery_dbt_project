@@ -1,0 +1,96 @@
+version: 2
+
+models:
+
+  # ── DIMENSIONS ────────────────────────────────────────────────────────
+
+  - name: dim_teams
+    description: "Team dimension with division, league, and RedSox flag"
+    columns:
+      - name: team_id
+        description: "Unique team identifier"
+        tests:
+          - unique
+          - not_null
+      - name: team_name
+        tests:
+          - not_null
+      - name: league
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['AL', 'NL']
+
+  - name: dim_dates
+    description: "Date dimension spine from 2000 to 2030"
+    columns:
+      - name: date
+        tests:
+          - unique
+          - not_null
+
+  # ── FACTS ─────────────────────────────────────────────────────────────
+
+  - name: fct_games
+    description: "One row per regular season game, enriched with team and date info"
+    columns:
+      - name: game_id
+        description: "Unique game identifier"
+        tests:
+          - unique
+          - not_null
+      - name: game_date
+        tests:
+          - not_null
+      - name: home_runs
+        tests:
+          - not_null
+      - name: away_runs
+        tests:
+          - not_null
+      - name: win_type
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['HOME', 'AWAY', 'TIE']
+      - name: game_type
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['REGULAR']
+
+  - name: fct_postseason_games
+    description: "One row per postseason game"
+    columns:
+      - name: game_id
+        tests:
+          - unique
+          - not_null
+      - name: game_type
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['POSTSEASON']
+
+  # ── AGGREGATES ────────────────────────────────────────────────────────
+
+  - name: agg_team_season_stats
+    description: "Win/loss/run stats aggregated per team per season"
+    columns:
+      - name: total_games
+        description: "Total games played (home + away)"
+      - name: win_pct
+        description: "Win percentage between 0.000 and 1.000"
+      - name: season_rank
+        description: "League rank by win % within the season"
+
+  - name: agg_redsox_performance
+    description: "Red Sox season-by-season performance summary"
+    columns:
+      - name: season_year
+        tests:
+          - unique
+          - not_null
+      - name: league_rank
+        description: "RedSox ranking among all MLB teams by win %"
+

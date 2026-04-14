@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: stg_games
+    description: "Cleaned and standardised regular season game facts"
+    columns:
+      - name: game_id
+        description: "Unique game identifier"
+        tests:
+          - unique
+          - not_null
+      - name: game_date
+        tests:
+          - not_null
+      - name: home_team
+        tests:
+          - not_null
+      - name: away_team
+        tests:
+          - not_null
+      - name: home_runs
+        tests:
+          - not_null
+      - name: away_runs
+        tests:
+          - not_null
+      - name: win_type
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['HOME', 'AWAY', 'TIE']
+
+  - name: stg_teams
+    description: "Unique list of all MLB teams derived from game data"
+    columns:
+      - name: team_id
+        tests:
+          - unique
+          - not_null
+      - name: team_name
+        tests:
+          - not_null
+
+  - name: stg_schedules
+    description: "Cleaned game schedule data"
+    columns:
+      - name: game_id
+        tests:
+          - not_null
+
+  - name: stg_postseason
+    description: "Cleaned postseason game data"
+    columns:
+      - name: game_id
+        tests:
+          - unique
+          - not_null
