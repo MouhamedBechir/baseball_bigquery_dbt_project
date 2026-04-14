@@ -8,3 +8,4 @@ __pycache__/
 profiles.yml
 *service-account*.json
 venv
+.user.yml
