@@ -12,12 +12,6 @@
   )
 }}
 
-/*
-  dash_game_analysis
-  ==================
-  Detailed Game Analysis for Looker Studio
-  All games with Red Sox involvement - dashboard page 2
-*/
 
 SELECT
     -- Game identifiers

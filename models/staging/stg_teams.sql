@@ -5,12 +5,6 @@
   )
 }}
 
-/*
-  stg_teams
-  ─────────
-  Derives a unique list of all teams from games data.
-  Flags Red Sox for easy filtering downstream.
-*/
 
 WITH home_teams AS (
     SELECT DISTINCT

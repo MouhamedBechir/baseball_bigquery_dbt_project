@@ -12,12 +12,6 @@
   )
 }}
 
-/*
-  dash_postseason_summary
-  ======================
-  Postseason Game Summary for Looker Studio
-  Playoff games and Red Sox playoff performance
-*/
 
 SELECT
     -- Game identifiers
